@@ -1,17 +1,17 @@
-import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
-import { MyC } from './MyC';
-import { getQueryClient, trpc } from '@/trpc/server';
+import { requireAuth } from '@/lib/auth-utils';
+import { caller } from '@/trpc/server';
+import { LogoutButton } from './logout';
 
-export default async function Home() {
-  const queryClient = getQueryClient();
+const Page = async () => {
+  await requireAuth();
 
-  void queryClient.prefetchQuery(trpc.getUsers.queryOptions());
-
+  const data = await caller.getUsers();
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <MyC />
-      </HydrationBoundary>
+      Protected Server component
+      <div className="">{JSON.stringify(data, null, 2)}</div>
+      <LogoutButton />
     </div>
   );
-}
+};
+export default Page;
