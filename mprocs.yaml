@@ -1,6 +1,6 @@
 procs:
-  inngest:
-    cmd: ['npm', 'run', 'inngest:dev']
-
   next:
     cmd: ['npm', 'run', 'dev']
+
+  inngest:
+    cmd: ['zsh', '-c', 'source ~/.zshrc 2>/dev/null || true; /Users/deepaksankhyan/Builds/node-n8n/scripts/wait-for-server.sh']
